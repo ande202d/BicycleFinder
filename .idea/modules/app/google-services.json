@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "102787427065",
+    "firebase_url": "https://bicyclefinder-79d2d.firebaseio.com",
+    "project_id": "bicyclefinder-79d2d",
+    "storage_bucket": "bicyclefinder-79d2d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:102787427065:android:86e91a05931b9f6e92d028",
+        "android_client_info": {
+          "package_name": "com.example.bicyclefinder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "102787427065-qe7m2gft5984d46qf666r8vfk0tnb7u2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.bicyclefinder",
+            "certificate_hash": "4cb8aa7bd265c06a3f37da93d53e96bd44147714"
+          }
+        },
+        {
+          "client_id": "102787427065-5ioa27cct49bfotau2hallka0kvc5dh8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFJExto9oLGPXJPvjvt38GIwzTvfTJZHg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "102787427065-5ioa27cct49bfotau2hallka0kvc5dh8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
