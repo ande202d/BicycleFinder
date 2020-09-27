@@ -166,7 +166,29 @@ public class MainActivity extends AppCompatActivity {
 
     public void SignUp(View view) {
         if (_signUpMode){
-
+            String email = _loginEmailField.getText().toString();
+            String pass = _loginPasswordField.getText().toString();
+            if (pass.isEmpty() || email.isEmpty()) return;
+            mAuth.createUserWithEmailAndPassword(email, pass)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                Log.d(TAG, "createUserWithEmail:success");
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                mAuth.signOut();
+                                _messageView.setText("Signed up as: " + user.getEmail());
+                                SwitchMode();
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                                Toast.makeText(getBaseContext(), "Authentication failed.",
+                                        Toast.LENGTH_SHORT).show();
+                                _messageView.setText("failed");
+                            }
+                        }
+                    });
         }
         else {
             SwitchMode();

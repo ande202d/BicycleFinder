@@ -5,11 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".BicyclesActivity"
+    android:background="#515D6A"
     android:orientation="vertical">
 
-    <TextView
+    <Button
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="HHAHAHAHAHA"/>
+        android:layout_height="wrap_content"
+        android:text="Reload"
+        android:onClick="ReloadList"/>
+
+    <TextView
+        android:id="@+id/bicycleTextViewMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvBikes"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </LinearLayout>
