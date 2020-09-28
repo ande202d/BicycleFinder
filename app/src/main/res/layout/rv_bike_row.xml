@@ -6,36 +6,36 @@
 
     <TextView
         android:id="@+id/rvBikeRowFrameNumber"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="1W331"
         android:textStyle="bold"
         android:layout_weight="1"
-        android:gravity="center"
+        android:gravity="left"
         android:textSize="20sp"/>
     <TextView
         android:id="@+id/rvBikeRowPlace"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Roskilde"
         android:layout_weight="1"
-        android:gravity="center"
+        android:gravity="left"
         android:textSize="20sp"/>
     <TextView
         android:id="@+id/rvBikeRowDate"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="13/9-2020"
         android:layout_weight="1"
-        android:gravity="center"
+        android:gravity="left"
         android:textSize="20sp"/>
     <TextView
         android:id="@+id/rvBikeRowMissing"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="missing"
         android:layout_weight="1"
-        android:gravity="center"
+        android:gravity="left"
         android:textSize="20sp"/>
 
 </LinearLayout>
