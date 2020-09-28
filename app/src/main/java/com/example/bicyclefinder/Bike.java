@@ -3,7 +3,9 @@ package com.example.bicyclefinder;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Bike {
+import java.io.Serializable;
+
+public class Bike implements Serializable {
 
     public Bike(){
     }

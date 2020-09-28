@@ -28,6 +28,7 @@ public interface RESTService {
 
     //------------------------------------------------
     //USERS
-    //@GET
+    @GET("Users/{id}")
+    Call<User> getOneUser(@Path("id") int userId);
     //------------------------------------------------
 }

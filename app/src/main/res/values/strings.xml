@@ -7,4 +7,5 @@
     -->
     <string name="hello_world">Hello Square World!</string>
     <string name="title_activity_bicycles">BicyclesActivity</string>
+    <string name="title_activity_bicycle_info">BicycleInfoActivity</string>
 </resources>

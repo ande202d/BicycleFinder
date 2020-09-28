@@ -4,11 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.gson.JsonSerializer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +49,9 @@ public class BicyclesActivity extends AppCompatActivity implements MyRecyclerVie
     @Override
     public void onItemClick(View view, int position) {
         Bike bike = adapter.getItem(position);
+        Intent intent = new Intent(BicyclesActivity.this, BicycleInfoActivity.class);
+        intent.putExtra(BicycleInfoActivity.BIKE, bike);
+        startActivity(intent);
         Toast.makeText(this, "You clicked" + bike + " on row: " + position, Toast.LENGTH_LONG).show();
     }
 
