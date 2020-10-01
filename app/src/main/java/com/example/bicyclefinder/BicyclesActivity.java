@@ -28,6 +28,7 @@ public class BicyclesActivity extends AppCompatActivity implements MyRecyclerVie
     List<Bike> Bikes = new ArrayList<Bike>();
     private static final String LOG_TAG = "MINE";
     private TextView messageView;
+    public static final String CURRENTUSER = "CURRENTUSER";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,16 +57,13 @@ public class BicyclesActivity extends AppCompatActivity implements MyRecyclerVie
     }
 
     public void ReloadList(View view) {
-        getAndShowAllBikes();
+        //getAndShowAllBikes();
+        Intent intent = new Intent(BicyclesActivity.this, AddBicycleActivity.class);
+        startActivity(intent);
     }
 
     private void getAndShowAllBikes(){
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://anbo-bicyclefinder.azurewebsites.net/api/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        RESTService service = retrofit.create(RESTService.class);
+        RESTService service = ApiUtils.getInstance().getRESTService();
 
         Call<List<Bike>> callAllBikes = service.getAllBikes();
 

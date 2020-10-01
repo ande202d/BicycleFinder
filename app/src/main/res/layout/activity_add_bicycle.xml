@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddBicycleActivity"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:text="Bike"
+        android:textStyle="bold"/> //Bike headline
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="FrameNumber : "
+            android:textSize="20sp"
+            android:layout_weight="1"
+            android:gravity="right"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="20sp"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:id="@+id/addFrameNumber"/>
+    </LinearLayout> //FrameNumber
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="KindOfBicycle : "
+            android:textSize="20sp"
+            android:layout_weight="1"
+            android:gravity="right"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="20sp"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:id="@+id/addKindOfBicycle"/>
+    </LinearLayout> //KindOfBicycle
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Brand : "
+            android:textSize="20sp"
+            android:layout_weight="1"
+            android:gravity="right"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="20sp"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:id="@+id/addBrand"/>
+    </LinearLayout> //Brand
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Colors : "
+            android:textSize="20sp"
+            android:layout_weight="1"
+            android:gravity="right"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="20sp"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:id="@+id/addColors"/>
+    </LinearLayout> //Colors
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Place : "
+            android:textSize="20sp"
+            android:layout_weight="1"
+            android:gravity="right"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="20sp"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:id="@+id/addPlace"/>
+    </LinearLayout> //Place
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Date : "
+            android:textSize="20sp"
+            android:layout_weight="1"
+            android:gravity="right"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:editable="false"
+            android:text="Auto"
+            android:textSize="20sp"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:id="@+id/addDate"/>
+    </LinearLayout> //Date (auto)
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+<!--        <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="MissingFound : "-->
+<!--        android:textSize="20sp"-->
+<!--        android:layout_weight="1"-->
+<!--        android:gravity="right"/>-->
+
+        <RadioGroup
+            android:layout_weight="1"
+            android:checkedButton="@+id/addRadioGroupMissing"
+            android:id="@+id/addRadioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="30sp"
+            android:layout_marginLeft="50sp"
+            android:layout_marginRight="50sp"
+            android:background="@drawable/pink_out_line"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="1dp"
+                android:layout_marginLeft="1dp"
+                android:id="@+id/addRadioGroupFound"
+                android:background="@drawable/toggle_widget_background"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:gravity="center"
+                android:text="Found"
+                android:textColor="@color/white" />
+
+            <RadioButton
+                android:layout_marginRight="1dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="1dp"
+                android:id="@+id/addRadioGroupMissing"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/toggle_widget_background"
+                android:button="@null"
+                android:gravity="center"
+                android:text="Missing"
+                android:textColor="@color/white" />
+        </RadioGroup>
+
+
+    </LinearLayout> //MissingFound
+
+    <TextView
+        android:id="@+id/addTextViewMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="Add Bicycle"
+        android:onClick="AddBicycle"/>
+
+
+</LinearLayout>

@@ -3,7 +3,6 @@
     package="com.example.bicyclefinder">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -14,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".BicycleInfoActivity"></activity>
+        <activity android:name=".AddBicycleActivity"></activity>
+        <activity android:name=".BicycleInfoActivity" />
         <activity android:name=".BicyclesActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

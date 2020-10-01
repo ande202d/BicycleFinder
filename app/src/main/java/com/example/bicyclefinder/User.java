@@ -3,7 +3,18 @@ package com.example.bicyclefinder;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
+    public User(){
+
+    }
+    public User(String name, String phone, String fireBaseId){
+        setId(420);
+        setName(name);
+        setPhone(phone);
+        setFirebaseUserId(fireBaseId);
+    }
 
     @SerializedName("id")
     @Expose

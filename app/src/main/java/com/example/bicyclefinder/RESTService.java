@@ -30,5 +30,11 @@ public interface RESTService {
     //USERS
     @GET("Users/{id}")
     Call<User> getOneUser(@Path("id") int userId);
+
+    @GET("Users")
+    Call<List<User>> getAllUsers();
+
+    @POST("Users")
+    Call<User> postUser(@Body User user);
     //------------------------------------------------
 }

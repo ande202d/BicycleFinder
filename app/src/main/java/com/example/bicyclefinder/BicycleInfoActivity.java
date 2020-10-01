@@ -62,23 +62,22 @@ public class BicycleInfoActivity extends AppCompatActivity {
         TextView phoneField = findViewById(R.id.infoPhoneUser);
         TextView firebaseIdField = findViewById(R.id.infoFirebaseIdUser);
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://anbo-bicyclefinder.azurewebsites.net/api/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        RESTService service = retrofit.create(RESTService.class);
+        RESTService service = ApiUtils.getInstance().getRESTService();
 
         Call<User> callOneUser = service.getOneUser(id);
 
         callOneUser.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                User u = response.body();
-                userIdField.setText(u.getId().toString());
-                userNameField.setText(u.getName());
-                phoneField.setText(u.getPhone());
-                firebaseIdField.setText(u.getFirebaseUserId());
+                if (response.isSuccessful()){
+                    if (response.body() != null){
+                        User u = response.body();
+                        userIdField.setText(u.getId().toString());
+                        userNameField.setText(u.getName());
+                        phoneField.setText(u.getPhone());
+                        firebaseIdField.setText(u.getFirebaseUserId());
+                    } else userIdField.setText("user not found in REST");
+                }
             }
 
             @Override

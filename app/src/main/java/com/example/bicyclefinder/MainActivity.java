@@ -19,6 +19,15 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class MainActivity extends AppCompatActivity {
 
     private boolean _loginMode = false;
@@ -77,15 +86,17 @@ public class MainActivity extends AppCompatActivity {
             _loginMode = true;
             _signUpMode = false;
         }
-        _loginNameField.setText("");
-        _loginPhoneField.setText("");
-        _loginEmailField.setText("");
-        _loginPasswordField.setText("");
+
 
         ApplyLayout();
     }
 
     private void ApplyLayout(){
+        _loginNameField.setText("");
+        _loginPhoneField.setText("");
+        _loginEmailField.setText("");
+        _loginPasswordField.setText("");
+
         currentUser = mAuth.getCurrentUser();
 
         _loginButton.setBackgroundColor(_loginMode ? Color.GREEN : Color.RED);
@@ -124,7 +135,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
     public void Login(View view) {
         if (_loginMode){
             if (mAuth.getCurrentUser() != null){ //someone is already logged in
@@ -141,14 +151,25 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                //what if the user is in the firebase database, but not in the REST database?
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d(TAG, "signInWithEmail:success");
                                 Toast.makeText(getBaseContext(), "Successfully logged in",
                                         Toast.LENGTH_SHORT).show();
-                                FirebaseUser user = mAuth.getCurrentUser();
                                 _messageView.setText("Signed in as: " + user.getEmail());
                                 Intent intent = new Intent(getBaseContext(), BicyclesActivity.class);
                                 startActivity(intent);
+
+//                                if (DoesRESTContainsFirebaseId(user.getUid())){
+//                                    //hej
+//                                } else{
+//                                    mAuth.signOut();
+//                                    _messageView.setText("You need to register again to get on REST database");
+//                                    SwitchMode(); //now we are on signin
+//                                    _loginEmailField.setText(email);
+//                                    _loginPasswordField.setText(pass);
+//                                }
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w(TAG, "signInWithEmail:failure", task.getException());
@@ -168,7 +189,12 @@ public class MainActivity extends AppCompatActivity {
         if (_signUpMode){
             String email = _loginEmailField.getText().toString();
             String pass = _loginPasswordField.getText().toString();
-            if (pass.isEmpty() || email.isEmpty()) return;
+            String name = _loginNameField.getText().toString();
+            String phone = _loginPhoneField.getText().toString();
+            if (pass.isEmpty() || email.isEmpty() || name.isEmpty() || phone.isEmpty()) {
+                _messageView.setText("All fields needs to be filled");
+                return;
+            }
             mAuth.createUserWithEmailAndPassword(email, pass)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -177,6 +203,7 @@ public class MainActivity extends AppCompatActivity {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d(TAG, "createUserWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
+                                AddNewUserToREST(name, phone, user.getUid());
                                 mAuth.signOut();
                                 _messageView.setText("Signed up as: " + user.getEmail());
                                 SwitchMode();
@@ -200,6 +227,57 @@ public class MainActivity extends AppCompatActivity {
         if (_loginMode) s+= "Login";
         if (_signUpMode) s+= "SignUp";
         return s;
+    }
+
+    private boolean DoesRESTContainsFirebaseId(String firebaseId){
+        List<User> listToCheck = new ArrayList<>();
+        Call<List<User>> callGetAllUsers = ApiUtils.getInstance().getRESTService().getAllUsers();
+        callGetAllUsers.enqueue(new Callback<List<User>>() {
+            @Override
+            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+                if (response.isSuccessful()) listToCheck.addAll(response.body());
+                else _messageView.setText("Couldnt check if firebase id on REST exists");
+            }
+
+            @Override
+            public void onFailure(Call<List<User>> call, Throwable t) {
+                _messageView.setText(t.getMessage());
+            }
+
+        });
+        for (User u : listToCheck) {
+            if (u.getFirebaseUserId() == firebaseId) return true;
+        }
+        return false; //it will always return false because it dose'nt get a response from the call
+    }
+
+    public void AddNewUserToREST(String name, String phone, String fireBaseId){
+        User userToAdd = new User(name, phone, fireBaseId);
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://anbo-bicyclefinder.azurewebsites.net/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        RESTService service = retrofit.create(RESTService.class);
+
+        Call<User> callAddUser = service.postUser(userToAdd);
+        callAddUser.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if (response.isSuccessful()){
+                    Toast.makeText(MainActivity.this, "User added successfully", Toast.LENGTH_SHORT).show();
+                    _messageView.setText("User added successfully");
+                }else {
+                    Toast.makeText(MainActivity.this, "ERROR: " + response.code(), Toast.LENGTH_SHORT).show();
+                    _messageView.setText("ERROR: " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                _messageView.setText(t.getMessage());
+            }
+        });
     }
 
     public void AllBicycles(View view) {
