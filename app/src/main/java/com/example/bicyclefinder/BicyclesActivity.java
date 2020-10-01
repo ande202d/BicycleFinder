@@ -29,6 +29,7 @@ public class BicyclesActivity extends AppCompatActivity implements MyRecyclerVie
     private static final String LOG_TAG = "MINE";
     private TextView messageView;
     public static final String CURRENTUSER = "CURRENTUSER";
+    private User currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,13 @@ public class BicyclesActivity extends AppCompatActivity implements MyRecyclerVie
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        currentUser = (User)getIntent().getSerializableExtra(CURRENTUSER);
+        //Toast.makeText(this, "CurrentUser: " + currentUser.getName(), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
     public void onItemClick(View view, int position) {
         Bike bike = adapter.getItem(position);
         Intent intent = new Intent(BicyclesActivity.this, BicycleInfoActivity.class);
@@ -56,9 +64,10 @@ public class BicyclesActivity extends AppCompatActivity implements MyRecyclerVie
         Toast.makeText(this, "You clicked" + bike + " on row: " + position, Toast.LENGTH_LONG).show();
     }
 
-    public void ReloadList(View view) {
+    public void GoToAddBike(View view) {
         //getAndShowAllBikes();
         Intent intent = new Intent(BicyclesActivity.this, AddBicycleActivity.class);
+        intent.putExtra(AddBicycleActivity.CURRENTUSER, currentUser);
         startActivity(intent);
     }
 

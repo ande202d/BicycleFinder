@@ -8,20 +8,27 @@
     android:background="#515D6A"
     android:orientation="vertical">
 
-    <Button
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Add Bicycle"
-        android:onClick="ReloadList"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="20sp">
 
-    <TextView
-        android:id="@+id/bicycleTextViewMessage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add Bicycle"
+            android:onClick="GoToAddBike" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvBikes"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        <TextView
+            android:id="@+id/bicycleTextViewMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvBikes"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
 
 </LinearLayout>

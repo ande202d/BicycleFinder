@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".AddBicycleActivity"></activity>
+        <activity android:name=".CheckerActivity"></activity>
+        <activity android:name=".AddBicycleActivity" />
         <activity android:name=".BicycleInfoActivity" />
         <activity android:name=".BicyclesActivity" />
         <activity android:name=".MainActivity">

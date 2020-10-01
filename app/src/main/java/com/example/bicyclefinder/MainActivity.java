@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.makeText(getBaseContext(), "Successfully logged in",
                                         Toast.LENGTH_SHORT).show();
                                 _messageView.setText("Signed in as: " + user.getEmail());
-                                Intent intent = new Intent(getBaseContext(), BicyclesActivity.class);
+                                Intent intent = new Intent(getBaseContext(), CheckerActivity.class);
                                 startActivity(intent);
 
 //                                if (DoesRESTContainsFirebaseId(user.getUid())){
@@ -222,45 +222,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public String GetMode(){
-        String s = "";
-        if (_loginMode) s+= "Login";
-        if (_signUpMode) s+= "SignUp";
-        return s;
-    }
-
-    private boolean DoesRESTContainsFirebaseId(String firebaseId){
-        List<User> listToCheck = new ArrayList<>();
-        Call<List<User>> callGetAllUsers = ApiUtils.getInstance().getRESTService().getAllUsers();
-        callGetAllUsers.enqueue(new Callback<List<User>>() {
-            @Override
-            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
-                if (response.isSuccessful()) listToCheck.addAll(response.body());
-                else _messageView.setText("Couldnt check if firebase id on REST exists");
-            }
-
-            @Override
-            public void onFailure(Call<List<User>> call, Throwable t) {
-                _messageView.setText(t.getMessage());
-            }
-
-        });
-        for (User u : listToCheck) {
-            if (u.getFirebaseUserId() == firebaseId) return true;
-        }
-        return false; //it will always return false because it dose'nt get a response from the call
-    }
-
     public void AddNewUserToREST(String name, String phone, String fireBaseId){
         User userToAdd = new User(name, phone, fireBaseId);
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://anbo-bicyclefinder.azurewebsites.net/api/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
 
-        RESTService service = retrofit.create(RESTService.class);
-
-        Call<User> callAddUser = service.postUser(userToAdd);
+        Call<User> callAddUser = ApiUtils.getInstance().getRESTService().postUser(userToAdd);
         callAddUser.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
@@ -281,7 +246,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void AllBicycles(View view) {
-        Intent intent = new Intent(getBaseContext(), BicyclesActivity.class);
-        startActivity(intent);
+        if (mAuth.getCurrentUser() == null){
+            Intent intent = new Intent(getBaseContext(), BicyclesActivity.class);
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(getBaseContext(), CheckerActivity.class);
+            startActivity(intent);
+        }
     }
 }

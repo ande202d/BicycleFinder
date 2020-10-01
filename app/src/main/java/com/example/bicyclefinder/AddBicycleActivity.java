@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Switch;
@@ -28,7 +29,7 @@ import retrofit2.Response;
 
 public class AddBicycleActivity extends AppCompatActivity {
 
-    //public static final String CURRENTUSER = "CURRENTUSER";
+    public static final String CURRENTUSER = "CURRENTUSER";
     private User currentUser;
     TextView message;
     private FirebaseAuth mAuth;
@@ -44,6 +45,8 @@ public class AddBicycleActivity extends AppCompatActivity {
     EditText addFieldPlace;
     EditText addFieldDate;
 
+    LinearLayout addVisibility;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,37 +54,7 @@ public class AddBicycleActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        Intent intent = getIntent();
-        //currentUser = (User) intent.getSerializableExtra(CURRENTUSER);
-        //GETTING CURRENT USER
-        if (mAuth.getCurrentUser() != null){
-            List<User> listToCheck = new ArrayList<>();
-            Call<List<User>> callGetAllUsers = ApiUtils.getInstance().getRESTService().getAllUsers();
-            callGetAllUsers.enqueue(new Callback<List<User>>() {
-                @Override
-                public void onResponse(Call<List<User>> call, Response<List<User>> response) {
-                    if (response.isSuccessful()){
-                        listToCheck.addAll(response.body());
-                        String mAuthCurrentUserId = mAuth.getCurrentUser().getUid();
-                        for (User u : response.body()) {
-                            if (u.getFirebaseUserId().equals(mAuthCurrentUserId)){ //if one of the users in REST is the same as the one we are logged in as
-                                currentUser = u;
-                            }
-                        }
-                    }
-                    else message.setText("Couldnt check if firebase id on REST exists");
-                }
-
-                @Override
-                public void onFailure(Call<List<User>> call, Throwable t) {
-                    message.setText(t.getMessage());
-                }
-            });
-        }
-
-
         message = findViewById(R.id.addTextViewMessage);
-
 
         radioGroup = findViewById(R.id.addRadioGroup);
         radioButtonFound = findViewById(R.id.addRadioGroupFound);
@@ -94,14 +67,53 @@ public class AddBicycleActivity extends AppCompatActivity {
         addFieldPlace = findViewById(R.id.addPlace);
         addFieldDate = findViewById(R.id.addDate);
 
-        addFieldDate.setText(new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()));
+        addVisibility = findViewById(R.id.addVisibility);
 
-//        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-//                TestSomething();
-//            }
-//        });
+        addFieldDate.setText(new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()));
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        addVisibility.setVisibility(View.INVISIBLE);
+
+        Intent intent = getIntent();
+        currentUser = (User)intent.getSerializableExtra(CURRENTUSER);
+        if (currentUser != null){
+            currentUser = (User)intent.getSerializableExtra(CURRENTUSER);
+            addVisibility.setVisibility(View.VISIBLE);
+            //Toast.makeText(this, "CurrentUser: " + currentUser.getName(), Toast.LENGTH_LONG).show();
+        } else {
+            addVisibility.setVisibility(View.INVISIBLE);
+            message.setText("You need to be logged in");
+        }
+
+        //region GETTING CURRENT USER (OLD)
+//        if (mAuth.getCurrentUser() != null){
+//            List<User> listToCheck = new ArrayList<>();
+//            Call<List<User>> callGetAllUsers = ApiUtils.getInstance().getRESTService().getAllUsers();
+//            callGetAllUsers.enqueue(new Callback<List<User>>() {
+//                @Override
+//                public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+//                    if (response.isSuccessful()){
+//                        listToCheck.addAll(response.body());
+//                        String mAuthCurrentUserId = mAuth.getCurrentUser().getUid();
+//                        for (User u : response.body()) {
+//                            if (u.getFirebaseUserId().equals(mAuthCurrentUserId)){ //if one of the users in REST is the same as the one we are logged in as
+//                                currentUser = u;
+//                            }
+//                        }
+//                    }
+//                    else message.setText("Couldnt check if firebase id on REST exists");
+//                }
+//
+//                @Override
+//                public void onFailure(Call<List<User>> call, Throwable t) {
+//                    message.setText(t.getMessage());
+//                }
+//            });
+//        }
+        //endregion
     }
 
     public void AddBicycle(View view){

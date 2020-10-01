@@ -7,6 +7,25 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textColorHint">#FFFFFF</item>
     </style>
+
+    <style name="AllButtonsDefaultStyling" parent="Widget.AppCompat.Button">
+        <item name="android:drawable">@color/blue</item>
+        <item name="android:background">@drawable/button_clicked_background</item>
+    </style>
+
+<!--    styling text views-->
+    <style name="textViewWhite" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+<!--    styling edit text-->
+<!--    todo-->
+
+    <style name="hej" parent="android:Theme">
+        <item name="android:textViewStyle">@style/textViewWhite</item>
+        <item name="android:buttonStyle">@style/AllButtonsDefaultStyling</item>
+    </style>
+
     <style name="TextViewStyle1" parent="@style/Widget.AppCompat.TextView">
         <item name="android:textSize">20sp</item>
         <item name="android:layout_width">match_parent</item>
