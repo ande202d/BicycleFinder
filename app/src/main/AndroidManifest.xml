@@ -13,7 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".CheckerActivity"></activity>
+        <activity
+            android:name=".BicycleListActivity"
+            android:label="@string/title_activity_bicycle_list"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".CheckerActivity" />
         <activity android:name=".AddBicycleActivity" />
         <activity android:name=".BicycleInfoActivity" />
         <activity android:name=".BicyclesActivity" />

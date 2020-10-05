@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_show_all_bicycles"
+        android:icon="@mipmap/ic_launcher"
+        android:orderInCategory="1"
+        android:title="All"
+        app:showAsAction="always|withText" />
+
+    <item
+        android:id="@+id/action_show_missing_bicycles"
+        android:icon="@android:drawable/ic_dialog_email"
+        android:orderInCategory="2"
+        android:title="Missing"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_show_found_bicycles"
+        android:icon="@android:drawable/ic_menu_save"
+        android:orderInCategory="3"
+        android:title="Found"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_show_mine_bicycles"
+        android:icon="@android:drawable/ic_menu_save"
+        android:orderInCategory="4"
+        android:title="Mine"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_user_data"
+        android:icon="@android:drawable/ic_menu_save"
+        android:orderInCategory="5"
+        android:title="User"
+        app:showAsAction="ifRoom" />
+
+    <!-- https://stackoverflow.com/questions/18494012/where-are-the-android-icon-drawables-within-the-sdk -->
+
+</menu>
