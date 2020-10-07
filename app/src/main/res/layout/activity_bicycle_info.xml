@@ -263,6 +263,20 @@
                 android:id="@+id/infoFirebaseIdUser" />
         </LinearLayout> //FirebaseUserId
 
+        <TextView
+            android:id="@+id/infoTextViewMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/infoDeleteButton"
+            android:text="Delete"
+            android:background="@color/red"
+            android:layout_margin="20sp"
+            android:onClick="DeleteBicycle"/>
+
     </LinearLayout>
 
 </LinearLayout>

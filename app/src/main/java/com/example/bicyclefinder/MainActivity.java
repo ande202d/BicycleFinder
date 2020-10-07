@@ -247,7 +247,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void AllBicycles(View view) {
         if (mAuth.getCurrentUser() == null){
-            Intent intent = new Intent(getBaseContext(), BicyclesActivity.class);
+            Intent intent = new Intent(getBaseContext(), BicycleListActivity.class);
             startActivity(intent);
         } else {
             Intent intent = new Intent(getBaseContext(), CheckerActivity.class);

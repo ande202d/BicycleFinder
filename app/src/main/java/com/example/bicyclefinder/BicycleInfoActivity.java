@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -19,7 +22,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class BicycleInfoActivity extends AppCompatActivity {
 
     public static final String BIKE = "BIKE";
+    public static final String CURRENTUSER = "CURRENTUSER";
+    private User currentUser;
     private Bike currentBike;
+    TextView message;
+    Button deleteButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,10 +35,24 @@ public class BicycleInfoActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         currentBike = (Bike) intent.getSerializableExtra(BIKE);
+        currentUser = (User) intent.getSerializableExtra(CURRENTUSER);
+        message = findViewById(R.id.infoTextViewMessage);
+        deleteButton = findViewById(R.id.infoDeleteButton);
 
         if (currentBike != null) {
             setAllBikeData(currentBike);
             if (currentBike.getUserId() != null) setAllUserData(currentBike.getUserId());
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        deleteButton.setVisibility(View.GONE);
+        if (currentUser != null){
+            if (currentUser.getId().equals(currentBike.getUserId())){
+                deleteButton.setVisibility(View.VISIBLE);
+            }
         }
     }
 
@@ -85,5 +106,26 @@ public class BicycleInfoActivity extends AppCompatActivity {
                 userIdField.setText(t.getMessage());
             }
         });
+    }
+
+    public void DeleteBicycle(View view) {
+        if (currentBike != null){
+            Call<String> callDeleteBike = ApiUtils.getInstance().getRESTService().deleteBike(currentBike.getId());
+            callDeleteBike.enqueue(new Callback<String>() {
+                @Override
+                public void onResponse(Call<String> call, Response<String> response) {
+                    if (response.isSuccessful()){
+                        message.setText("Successfully deleted: " + currentBike.getId());
+                    } else {
+                        message.setText("ID: " + currentBike.getId() + ", ERROR: " + response.message());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<String> call, Throwable t) {
+                    message.setText(t.getMessage());
+                }
+            });
+        }
     }
 }

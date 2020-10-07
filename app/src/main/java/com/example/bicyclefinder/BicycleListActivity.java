@@ -70,8 +70,9 @@ public class BicycleListActivity extends AppCompatActivity implements MyRecycler
         recyclerView.setAdapter(adapter);
 
         //getAndShowAllBikes();
-        reloadTheBikeListAndShowThemAll();
+        reloadTheBikeListAndShow("All");
     }
+
 
     private void SetupTabLayout(TabLayout tabLayout) {
         tabLayout.addTab(tabLayout.newTab().setText("All"));
@@ -84,7 +85,7 @@ public class BicycleListActivity extends AppCompatActivity implements MyRecycler
 
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                Toast.makeText(BicycleListActivity.this, tab.getPosition() + ", " + tab.getText(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(BicycleListActivity.this, tab.getPosition() + ", " + tab.getText(), Toast.LENGTH_LONG).show();
                 switch (tab.getText().toString()){
                     case "All":
                         showAllBikes();
@@ -94,6 +95,9 @@ public class BicycleListActivity extends AppCompatActivity implements MyRecycler
                         break;
                     case "Found":
                         showFoundBikes();
+                        break;
+                    case "Mine":
+                        showMyBikes();
                         break;
                 }
             }
@@ -114,6 +118,32 @@ public class BicycleListActivity extends AppCompatActivity implements MyRecycler
     protected void onStart() {
         super.onStart();
         currentUser = (User)getIntent().getSerializableExtra(CURRENTUSER);
+        //reloadTheBikeList();
+
+        //Toast.makeText(this, ""+AllBikes.size(), Toast.LENGTH_LONG).show();
+        switch (tabLayout.getTabAt(tabLayout.getSelectedTabPosition()).getText().toString()){
+            case "All":
+                reloadTheBikeListAndShow("All");
+                break;
+            case "Missing":
+                reloadTheBikeListAndShow("Missing");
+                break;
+            case "Found":
+                reloadTheBikeListAndShow("Found");
+                break;
+            case "Mine":
+                reloadTheBikeListAndShow("Mine");
+                break;
+            default:
+                reloadTheBikeListAndShow("All");
+        }
+        //tabLayout.getTabAt(0).select();
+
+        //Bikes.clear();
+        //Bikes.add(new Bike(99, "hej", "hej", "hej", "hej", "hej", "hej", 99, "found"));
+        adapter.notifyDataSetChanged();
+
+        //showAllBikes();
         //Toast.makeText(this, "CurrentUser: " + currentUser.getName(), Toast.LENGTH_LONG).show();
     }
 
@@ -122,8 +152,9 @@ public class BicycleListActivity extends AppCompatActivity implements MyRecycler
         Bike bike = adapter.getItem(position);
         Intent intent = new Intent(BicycleListActivity.this, BicycleInfoActivity.class);
         intent.putExtra(BicycleInfoActivity.BIKE, bike);
+        intent.putExtra(BicycleInfoActivity.CURRENTUSER, currentUser);
         startActivity(intent);
-        Toast.makeText(this, "You clicked" + bike + " on row: " + position, Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "You clicked" + bike + " on row: " + position, Toast.LENGTH_LONG).show();
     }
 
     public void GoToAddBike() {
@@ -136,7 +167,7 @@ public class BicycleListActivity extends AppCompatActivity implements MyRecycler
     private void showFoundBikes(){
         Bikes.clear();
         for (Bike b : AllBikes) {
-            if (b.getMissingFound().equals("found")) Bikes.add(b);
+            if (b.getMissingFound().toLowerCase().equals("found")) Bikes.add(b);
         }
         adapter.notifyDataSetChanged();
     }
@@ -144,7 +175,7 @@ public class BicycleListActivity extends AppCompatActivity implements MyRecycler
     private void showMissingBikes(){
         Bikes.clear();
         for (Bike b : AllBikes) {
-            if (b.getMissingFound().equals("missing")) Bikes.add(b);
+            if (b.getMissingFound().toLowerCase().equals("missing")) Bikes.add(b);
         }
         adapter.notifyDataSetChanged();
     }
@@ -152,6 +183,19 @@ public class BicycleListActivity extends AppCompatActivity implements MyRecycler
     private void showAllBikes(){
         Bikes.clear();
         Bikes.addAll(AllBikes);
+        adapter.notifyDataSetChanged();
+    }
+
+    private void showMyBikes(){
+        Bikes.clear();
+        //Toast.makeText(this, ""+currentUser.getId(), Toast.LENGTH_LONG).show();
+        if (currentUser != null){
+            for (Bike b : AllBikes) {
+                if (b.getUserId().equals(currentUser.getId())) {
+                    Bikes.add(b);
+                }
+            }
+        }
         adapter.notifyDataSetChanged();
     }
 
@@ -179,7 +223,8 @@ public class BicycleListActivity extends AppCompatActivity implements MyRecycler
             }
         });
     }
-    private void reloadTheBikeListAndShowThemAll(){
+
+    private void reloadTheBikeListAndShow(String whatToShow){
         Call<List<Bike>> callAllBikes = ApiUtils.getInstance().getRESTService().getAllBikes();
         callAllBikes.enqueue(new Callback<List<Bike>>() {
             @Override
@@ -189,7 +234,22 @@ public class BicycleListActivity extends AppCompatActivity implements MyRecycler
                     //Bikes.add(new Bike(69, "69", "69", "69", "69", "69", "69", 69, "found"));
                     AllBikes.clear();
                     AllBikes.addAll(response.body());
-                    showAllBikes();
+                    switch (whatToShow){
+                        case "All":
+                            showAllBikes();
+                            break;
+                        case "Missing":
+                            showMissingBikes();
+                            break;
+                        case "Found":
+                            showFoundBikes();
+                            break;
+                        case "Mine":
+                            showMyBikes();
+                            break;
+                        default:
+                            showAllBikes();
+                    }
                     //adapter.notifyDataSetChanged();
                 } else {
                     Log.d(LOG_TAG, response.message());

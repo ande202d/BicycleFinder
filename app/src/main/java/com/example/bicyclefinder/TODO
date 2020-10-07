@@ -5,20 +5,25 @@ A way to view current user info
 
 A logout button
 
-Appbar with options for all/missing/found (userinfo goes here?)
 
 Loading icons (bookstoreexample?) progressbar
 
-Scrollbar on bike list
-
-Add bike -button should be a floating button
-
 Espresso testing
 
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
+Som bruger vil jeg kunne logge ud af applikationen
+Mindst 1 Activity skal programmeres i Kotlin.
+Din applikation skal være brugbar i såvel landscape som portrait orientering.
+Din applikation må ikke tabe data hvis brugeren skifter skærm-orientering.
+Mindst 1 Activity skal have en AppBar indeholdende en titel og en fungerende menu.
+Din applikation skal bruge swipe eller andre gestures.
+Din applikation skal bruge loggin, særligt når der forekomme fejl. Log.e(..., ....)
+Mindst 1 Activity skal testes vha Espresso framework.
 
 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 EVERYTHING IN LANDSCAPE MODE
+    bike list done
 
 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
