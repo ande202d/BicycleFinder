@@ -8,58 +8,64 @@
     android:background="@color/colorPrimary"
     android:orientation="vertical">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:layout_marginLeft="20sp"
-        android:layout_marginRight="20sp"
-        android:visibility="gone"
-        android:id="@+id/checkerVisible">
+        android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/checkerName"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20sp"
-            android:hint="Name"
-            android:singleLine="true" />
-        <EditText
-            android:id="@+id/checkerPhone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:layout_marginBottom="20sp"
-            android:hint="Phone"
-            android:singleLine="true" />
-        <EditText
-            android:id="@+id/checkerEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20sp"
-            android:hint="Email"
-            android:editable="false"
-            android:singleLine="true" />
-        <EditText
-            android:id="@+id/checkerFirebaseId"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20sp"
-            android:hint="FirebaseId"
-            android:editable="false"
-            android:singleLine="true" />
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Add User Data"
-            android:onClick="AddUserWithFirebaseId" />
-        <TextView
-            android:id="@+id/checkerMessageView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginLeft="20sp"
+            android:layout_marginRight="20sp"
+            android:visibility="gone"
+            android:id="@+id/checkerVisible">
 
-    </LinearLayout>
+            <EditText
+                android:id="@+id/checkerName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20sp"
+                android:hint="Name"
+                android:singleLine="true" />
+            <EditText
+                android:id="@+id/checkerPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:layout_marginBottom="20sp"
+                android:hint="Phone"
+                android:singleLine="true" />
+            <EditText
+                android:id="@+id/checkerEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20sp"
+                android:hint="Email"
+                android:editable="false"
+                android:singleLine="true" />
+            <EditText
+                android:id="@+id/checkerFirebaseId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20sp"
+                android:hint="FirebaseId"
+                android:editable="false"
+                android:singleLine="true" />
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add User Data"
+                android:onClick="AddUserWithFirebaseId" />
+            <TextView
+                android:id="@+id/checkerMessageView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="" />
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>

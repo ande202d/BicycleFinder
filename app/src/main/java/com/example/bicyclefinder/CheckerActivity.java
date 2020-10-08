@@ -78,7 +78,7 @@ public class CheckerActivity extends AppCompatActivity {
                                 currentUser = u;
                                 //Intent intent = new Intent(CheckerActivity.this, BicyclesActivity.class);
                                 Intent intent = new Intent(CheckerActivity.this, BicycleListActivity.class);
-                                intent.putExtra(BicyclesActivity.CURRENTUSER, currentUser);
+                                intent.putExtra(BicycleListActivity.CURRENTUSER, currentUser);
                                 startActivity(intent);
                                 break;
                             }

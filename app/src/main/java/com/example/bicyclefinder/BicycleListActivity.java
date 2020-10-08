@@ -1,11 +1,13 @@
 package com.example.bicyclefinder;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.ShareActionProvider;
@@ -39,14 +41,15 @@ public class BicycleListActivity extends AppCompatActivity implements MyRecycler
     private TextView messageView;
     public static final String CURRENTUSER = "CURRENTUSER";
     private User currentUser;
-    private ShareActionProvider shareActionProvider;
+    //private ShareActionProvider shareActionProvider;
     TabLayout tabLayout;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bicycle_list);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         tabLayout = findViewById(R.id.listView_tabLayout);
@@ -278,33 +281,50 @@ public class BicycleListActivity extends AppCompatActivity implements MyRecycler
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_show_all_bicycles:
-                Toast.makeText(this, "All", Toast.LENGTH_LONG).show();
+            case R.id.action_logout:
+                //Toast.makeText(this, "LogOut", Toast.LENGTH_LONG).show();
+                if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+                    currentUser = null;
+                    FirebaseAuth.getInstance().signOut();
+                    Toast.makeText(this, "Signing out", Toast.LENGTH_LONG).show();
+                }
+                Intent intent = new Intent(BicycleListActivity.this, MainActivity.class);
+                startActivity(intent);
                 return true;
-            case R.id.action_show_missing_bicycles:
-                Toast.makeText(this, "Missing", Toast.LENGTH_LONG).show();
+            case R.id.action_userInfo:
+                if (FirebaseAuth.getInstance().getCurrentUser() == null) {
+                    Toast.makeText(this, "You are not logged in", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(this, "Signed in as: " + currentUser.getName(), Toast.LENGTH_LONG).show();
+                }
                 return true;
-            case R.id.action_show_found_bicycles:
-                Toast.makeText(this, "Found", Toast.LENGTH_LONG).show();
-                return true;
-            case R.id.action_show_mine_bicycles:
-                Toast.makeText(this, "Mine", Toast.LENGTH_LONG).show();
-                return true;
-            case R.id.action_user_data:
-                Toast.makeText(this, "UserData", Toast.LENGTH_LONG).show();
-                return true;
+//            case R.id.action_show_all_bicycles:
+//                Toast.makeText(this, "All", Toast.LENGTH_LONG).show();
+//                return true;
+//            case R.id.action_show_missing_bicycles:
+//                Toast.makeText(this, "Missing", Toast.LENGTH_LONG).show();
+//                return true;
+//            case R.id.action_show_found_bicycles:
+//                Toast.makeText(this, "Found", Toast.LENGTH_LONG).show();
+//                return true;
+//            case R.id.action_show_mine_bicycles:
+//                Toast.makeText(this, "Mine", Toast.LENGTH_LONG).show();
+//                return true;
+//            case R.id.action_user_data:
+//                Toast.makeText(this, "UserData", Toast.LENGTH_LONG).show();
+//                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
     // Head First, 2nd, page 333
-    private void setShareActionIntent(String text) {
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_TEXT, text);
-        shareActionProvider.setShareIntent(intent);
-    }
+//    private void setShareActionIntent(String text) {
+//        Intent intent = new Intent(Intent.ACTION_SEND);
+//        intent.setType("text/plain");
+//        intent.putExtra(Intent.EXTRA_TEXT, text);
+//        shareActionProvider.setShareIntent(intent);
+//    }
 
 
 }
