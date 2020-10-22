@@ -74,7 +74,7 @@ public class CheckerActivity extends AppCompatActivity {
                     if (response.body() != null){
                         //The response found users
                         for (User u : response.body()) {
-                            if (u.getFirebaseUserId().equals(firebaseId)){
+                            if (u.getFirebaseUserId() != null && u.getFirebaseUserId().equals(firebaseId)){
                                 currentUser = u;
                                 //Intent intent = new Intent(CheckerActivity.this, BicyclesActivity.class);
                                 Intent intent = new Intent(CheckerActivity.this, BicycleListActivity.class);

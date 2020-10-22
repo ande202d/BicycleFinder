@@ -10,7 +10,7 @@ public class User implements Serializable {
 
     }
     public User(String name, String phone, String fireBaseId){
-        setId(420);
+        setId(0);
         setName(name);
         setPhone(phone);
         setFirebaseUserId(fireBaseId);

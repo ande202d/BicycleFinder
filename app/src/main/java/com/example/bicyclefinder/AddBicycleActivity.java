@@ -134,7 +134,7 @@ public class AddBicycleActivity extends AppCompatActivity {
         }
         else {
             Bike bikeToAdd = new Bike(
-                    69,
+                    0,
                     frameNumber,
                     kindOfBicycle,
                     brand,
