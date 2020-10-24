@@ -13,13 +13,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.ShareActionProvider;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.MenuItemCompat;
+import androidx.core.view.MotionEventCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TableLayout;
 import android.widget.TextView;
@@ -74,6 +77,7 @@ public class BicycleListActivity extends AppCompatActivity implements MyRecycler
 
         //getAndShowAllBikes();
         reloadTheBikeListAndShow("All");
+
     }
 
 
@@ -233,7 +237,7 @@ public class BicycleListActivity extends AppCompatActivity implements MyRecycler
             @Override
             public void onResponse(Call<List<Bike>> call, Response<List<Bike>> response) {
                 if (response.isSuccessful()){
-                    Log.d(LOG_TAG, response.message());
+                    Log.d(LOG_TAG, "BikeList loaded successfully");
                     //Bikes.add(new Bike(69, "69", "69", "69", "69", "69", "69", 69, "found"));
                     AllBikes.clear();
                     AllBikes.addAll(response.body());
@@ -317,6 +321,12 @@ public class BicycleListActivity extends AppCompatActivity implements MyRecycler
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    //GESTURES
+    //-----------------------------------------------------------------------
+
+
+
 
     // Head First, 2nd, page 333
 //    private void setShareActionIntent(String text) {

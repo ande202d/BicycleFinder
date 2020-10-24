@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -29,6 +30,7 @@ import retrofit2.Response;
 
 public class AddBicycleActivity extends AppCompatActivity {
 
+    private static final String LOG_TAG = "MINE";
     public static final String CURRENTUSER = "CURRENTUSER";
     private User currentUser;
     TextView message;
@@ -151,6 +153,7 @@ public class AddBicycleActivity extends AppCompatActivity {
                 public void onResponse(Call<Bike> call, Response<Bike> response) {
                     if (response.isSuccessful()){
                         message.setText("Success");
+                        Log.d(LOG_TAG, "Bike added successfully");
                     } else message.setText("Failed: " + response.message());
                 }
 

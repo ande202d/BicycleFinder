@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean _signUpMode = false;
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
-    private static final String TAG = "lukind";
+    private static final String LOG_TAG = "MINE";
 
     private TextView _messageView;
     private TextView _loggedInView;
@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 //what if the user is in the firebase database, but not in the REST database?
                                 // Sign in success, update UI with the signed-in user's information
-                                Log.d(TAG, "signInWithEmail:success");
+                                Log.d(LOG_TAG, "signInWithEmail:success");
                                 Toast.makeText(getBaseContext(), "Successfully logged in",
                                         Toast.LENGTH_SHORT).show();
                                 _messageView.setText("Signed in as: " + user.getEmail());
@@ -172,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
 //                                }
                             } else {
                                 // If sign in fails, display a message to the user.
-                                Log.w(TAG, "signInWithEmail:failure", task.getException());
+                                Log.w(LOG_TAG, "signInWithEmail:failure", task.getException());
                                 Toast.makeText(getBaseContext(), "Authentication failed.",
                                         Toast.LENGTH_SHORT).show();
                                 _messageView.setText("Ugyldigt login");
@@ -201,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 // Sign in success, update UI with the signed-in user's information
-                                Log.d(TAG, "createUserWithEmail:success");
+                                Log.d(LOG_TAG, "createUserWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 AddNewUserToREST(name, phone, user.getUid());
                                 mAuth.signOut();
@@ -209,7 +209,7 @@ public class MainActivity extends AppCompatActivity {
                                 SwitchMode();
                             } else {
                                 // If sign in fails, display a message to the user.
-                                Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                                Log.w(LOG_TAG, "createUserWithEmail:failure", task.getException());
                                 Toast.makeText(getBaseContext(), "Authentication failed.",
                                         Toast.LENGTH_SHORT).show();
                                 _messageView.setText("failed");

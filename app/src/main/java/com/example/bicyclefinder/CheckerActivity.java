@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -40,6 +41,7 @@ public class CheckerActivity extends AppCompatActivity {
     TextView messageTextView;
     LinearLayout checkerVisible;
     private FirebaseAuth mAuth;
+    private static final String LOG_TAG = "MINE";
 
     private User currentUser;
 
@@ -76,6 +78,7 @@ public class CheckerActivity extends AppCompatActivity {
                         for (User u : response.body()) {
                             if (u.getFirebaseUserId() != null && u.getFirebaseUserId().equals(firebaseId)){
                                 currentUser = u;
+                                Log.d(LOG_TAG, "CHECKER: user was found in database");
                                 //Intent intent = new Intent(CheckerActivity.this, BicyclesActivity.class);
                                 Intent intent = new Intent(CheckerActivity.this, BicycleListActivity.class);
                                 intent.putExtra(BicycleListActivity.CURRENTUSER, currentUser);
@@ -86,6 +89,7 @@ public class CheckerActivity extends AppCompatActivity {
                     }
                     if (currentUser == null){
                         messageTextView.setText("No user had firebaseId: " + firebaseId );
+                        Log.d(LOG_TAG, "CHECKER: user was NOT found in database");
                         checkerVisible.setVisibility(View.VISIBLE);
                         editTextEmail.setText(mAuth.getCurrentUser().getEmail());
                         editTextFirebaseId.setText(mAuth.getCurrentUser().getUid());
@@ -114,6 +118,7 @@ public class CheckerActivity extends AppCompatActivity {
                     if (response.isSuccessful()){
                         if (response.body() != null){
                             currentUser = response.body();
+                            Log.d(LOG_TAG, "CHECKER: user was successfully added to database");
                             //Intent intent = new Intent(CheckerActivity.this, BicyclesActivity.class);
                             Intent intent = new Intent(CheckerActivity.this, BicycleListActivity.class);
                             intent.putExtra(BicyclesActivity.CURRENTUSER, currentUser);

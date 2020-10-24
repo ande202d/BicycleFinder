@@ -21,7 +21,7 @@
             android:onClick="GoToAddBike" />
 
         <TextView
-            android:id="@+id/bicycleTextViewMessage"
+            android:id="@+id/bicycleTextViewMessageOLD"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
