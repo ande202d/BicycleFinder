@@ -9,6 +9,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.ShareActionProvider;
 import androidx.appcompat.widget.Toolbar;
@@ -48,6 +49,8 @@ public class BicycleListActivity extends AppCompatActivity implements MyRecycler
     TabLayout tabLayout;
     Toolbar toolbar;
 
+    GestureDetector gestureDetector;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,8 +79,69 @@ public class BicycleListActivity extends AppCompatActivity implements MyRecycler
         recyclerView.setAdapter(adapter);
 
         //getAndShowAllBikes();
-        reloadTheBikeListAndShow("All");
+        //reloadTheBikeListAndShow("All");
 
+
+        //RecyclerView recyclerView = (RecyclerView)findViewById(R.id.rvBikes);
+        //recyclerView.setOnTouchListener((view, motionEvent) -> gestureDetector.onTouchEvent(motionEvent));
+        recyclerView.addOnItemTouchListener(new RecyclerView.SimpleOnItemTouchListener(){
+            @Override
+            public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+                return gestureDetector.onTouchEvent(e);
+            }
+
+            @Override
+            public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+                super.onTouchEvent(rv, e);
+            }
+        });
+        gestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
+            @Override
+            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+                //Log.d(LOG_TAG, "Fling");
+                return DoIt(e1, e2);
+                //return true;
+            }
+
+            private boolean DoIt(MotionEvent e1, MotionEvent e2) {
+                float horizontalDistance = Math.abs(e1.getX() - e2.getX());
+                float verticalDistance = Math.abs(e1.getY() - e2.getY());
+                float horizontalScale = 0.3f;
+                if ((horizontalDistance * horizontalScale) > verticalDistance) {
+                    if (e1.getX() < e2.getX()) {
+                        Log.d(LOG_TAG, "Right");
+                        tabLayout.getTabAt(GetIndexOfNextTab(1)).select();
+                        //Log.d(LOG_TAG, ""+tabLayout.get);
+                        //Log.d(LOG_TAG, ""+tabLayout.getTabAt(tabLayout.getRight()).getPosition());
+                    } else {
+                        Log.d(LOG_TAG, "Left");
+                        tabLayout.getTabAt(GetIndexOfNextTab(-1)).select();
+                        //Log.d(LOG_TAG, ""+tabLayout.getTabAt(tabLayout.getLeft()).getPosition());
+                    }
+                } else {
+                    if (e1.getY() < e2.getY()) {
+                        Log.d(LOG_TAG, "Down");
+                    } else {
+                        Log.d(LOG_TAG, "Up");
+                    }
+                }
+                return true;
+            }
+
+            private int GetIndexOfNextTab(int leftOrRight){
+                int currentTab = tabLayout.getSelectedTabPosition();
+                int nextTab = currentTab + leftOrRight;
+                int maxTabIndex = tabLayout.getTabCount() -1;
+                if (nextTab > maxTabIndex) return 0;
+                else if (nextTab < 0) return maxTabIndex;
+                else return nextTab;
+            }
+        });
+    }
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        Log.d(LOG_TAG, "TouchEvent");
+        return gestureDetector.onTouchEvent(event);
     }
 
 

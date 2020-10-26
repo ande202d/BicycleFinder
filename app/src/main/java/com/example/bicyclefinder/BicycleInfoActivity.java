@@ -51,55 +51,10 @@ public class BicycleInfoActivity extends AppCompatActivity {
             if (currentBike.getUserId() != null) setAllUserData(currentBike.getUserId());
         }
         //LinearLayout allContent = (LinearLayout) findViewById(R.id.infoAllContent);
-        gestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
-            @Override
-            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-                message.setText("FLING");
-                return DoIt(e1, e2);
-            }
+        //allContent.setOnTouchListener((view, motionEvent) -> gestureDetector.onTouchEvent(motionEvent));
 
-            @Override
-            public boolean onDown(MotionEvent e) {
-                message.setText("ondown");
-                return true;
-            }
-
-            @Override
-            public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
-                                    float distanceY) {
-                message.setText("SCROLL");
-                return DoIt(e1, e2);
-            }
-
-            private boolean DoIt(MotionEvent e1, MotionEvent e2) {
-                float horizontalDistance = Math.abs(e1.getX() - e2.getX());
-                float verticalDistance = Math.abs(e1.getY() - e2.getY());
-                if (horizontalDistance > verticalDistance) {
-                    if (e1.getX() < e2.getX()) {
-                        message.setText("Right");
-                    } else {
-                        message.setText("Left");
-                    }
-                    boolean leftMovement = e1.getX() < e2.getX();
-                    if (leftMovement) {
-                        finish();
-                    }
-                } else {
-                    if (e1.getY() < e2.getY()) {
-                        message.setText("Down");
-                    } else {
-                        message.setText("Up");
-                    }
-                }
-                return true;
-            }
-        });
         message.setText("hej");
 
-    }
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        return gestureDetector.onTouchEvent(event);
     }
 
     @Override
