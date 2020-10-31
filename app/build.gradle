@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileOptions { // https://github.com/square/retrofit/issues/3043
@@ -26,6 +28,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+//    buildscript {
+//        dependencies {
+//            classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
+//        }
+//    }
 }
 
 dependencies {
@@ -39,7 +46,8 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.7.1'
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.navigation:navigation-fragment:2.1.0'
-    implementation 'androidx.navigation:navigation-ui:2.1.0'//objects to gson and back
+    implementation 'androidx.navigation:navigation-ui:2.1.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version" //objects to gson and back
 
     //implementation 'androidx.wear:wear:1.0.0'
     testImplementation 'junit:junit:4.12'

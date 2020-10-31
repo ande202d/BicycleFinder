@@ -154,6 +154,7 @@ public class AddBicycleActivity extends AppCompatActivity {
                     if (response.isSuccessful()){
                         message.setText("Success");
                         Log.d(LOG_TAG, "Bike added successfully");
+                        finish();
                     } else message.setText("Failed: " + response.message());
                 }
 

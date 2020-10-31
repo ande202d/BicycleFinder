@@ -53,7 +53,7 @@ public class BicycleInfoActivity extends AppCompatActivity {
         //LinearLayout allContent = (LinearLayout) findViewById(R.id.infoAllContent);
         //allContent.setOnTouchListener((view, motionEvent) -> gestureDetector.onTouchEvent(motionEvent));
 
-        message.setText("hej");
+        //message.setText("hej");
 
     }
 

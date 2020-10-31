@@ -1,5 +1,6 @@
 package com.example.bicyclefinder;
 
+import android.content.ClipData;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -110,12 +111,12 @@ public class BicycleListActivity extends AppCompatActivity implements MyRecycler
                 if ((horizontalDistance * horizontalScale) > verticalDistance) {
                     if (e1.getX() < e2.getX()) {
                         Log.d(LOG_TAG, "Right");
-                        tabLayout.getTabAt(GetIndexOfNextTab(1)).select();
+                        tabLayout.getTabAt(GetIndexOfNextTab(-1)).select();
                         //Log.d(LOG_TAG, ""+tabLayout.get);
                         //Log.d(LOG_TAG, ""+tabLayout.getTabAt(tabLayout.getRight()).getPosition());
                     } else {
                         Log.d(LOG_TAG, "Left");
-                        tabLayout.getTabAt(GetIndexOfNextTab(-1)).select();
+                        tabLayout.getTabAt(GetIndexOfNextTab(1)).select();
                         //Log.d(LOG_TAG, ""+tabLayout.getTabAt(tabLayout.getLeft()).getPosition());
                     }
                 } else {
@@ -189,6 +190,7 @@ public class BicycleListActivity extends AppCompatActivity implements MyRecycler
     protected void onStart() {
         super.onStart();
         currentUser = (User)getIntent().getSerializableExtra(CURRENTUSER);
+
         //reloadTheBikeList();
 
         //Toast.makeText(this, ""+AllBikes.size(), Toast.LENGTH_LONG).show();
@@ -221,9 +223,10 @@ public class BicycleListActivity extends AppCompatActivity implements MyRecycler
     @Override
     public void onItemClick(View view, int position) {
         Bike bike = adapter.getItem(position);
-        Intent intent = new Intent(BicycleListActivity.this, BicycleInfoActivity.class);
-        intent.putExtra(BicycleInfoActivity.BIKE, bike);
-        intent.putExtra(BicycleInfoActivity.CURRENTUSER, currentUser);
+        //Intent intent = new Intent(BicycleListActivity.this, BicycleInfoActivity.class); //JAVA
+        Intent intent = new Intent(BicycleListActivity.this, infoPageActivity.class);
+        intent.putExtra(infoPageActivity.BIKE, bike);
+        intent.putExtra(infoPageActivity.CURRENTUSER, currentUser);
         startActivity(intent);
         //Toast.makeText(this, "You clicked" + bike + " on row: " + position, Toast.LENGTH_LONG).show();
     }
@@ -339,7 +342,10 @@ public class BicycleListActivity extends AppCompatActivity implements MyRecycler
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        //menu.findItem(R.id.action_logout).setTitle("haha");
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) menu.findItem(R.id.action_logout).setTitle("Back");
+        else menu.findItem(R.id.action_logout).setTitle("Logout");
         //MenuItem menuItem = menu.findItem(R.id.action_share);
         //shareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(menuItem);
         //setShareActionIntent("Want to join me for pizza?");
