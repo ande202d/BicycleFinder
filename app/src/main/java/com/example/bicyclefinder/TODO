@@ -13,13 +13,13 @@ Espresso testing
 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
             Som bruger vil jeg kunne logge ud af applikationen
-Mindst 1 Activity skal programmeres i Kotlin. (lav AddBicycleActivity eller BicycleInfoActivity om til kotlin)
+            Mindst 1 Activity skal programmeres i Kotlin. (lav AddBicycleActivity eller BicycleInfoActivity om til kotlin)
             Din applikation skal være brugbar i såvel landscape som portrait orientering.
             Din applikation må ikke tabe data hvis brugeren skifter skærm-orientering.
             Mindst 1 Activity skal have en AppBar indeholdende en titel og en fungerende menu.
             Din applikation skal bruge swipe eller andre gestures.
             Din applikation skal bruge loggin, særligt når der forekomme fejl. Log.d(..., ....)
-Mindst 1 Activity skal testes vha Espresso framework. (test addBicycleActivity)
+            Mindst 1 Activity skal testes vha Espresso framework. (test addBicycleActivity)
 
 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
